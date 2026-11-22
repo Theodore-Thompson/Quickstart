@@ -23,7 +23,7 @@ public class TeleOpMecanum extends OpMode {
 
     @Override
     public void init() {
-        telemetry.addData("Big things coming... ", "Initialized");
+        telemetry.addData("Aww shit here we go again...(Read this in a CJ voice) ", "Initialized");
         leftDriveB = hardwareMap.get(DcMotor.class, "left_drive_b");
         leftDriveF = hardwareMap.get(DcMotor.class, "left_drive_f");
         rightDriveB = hardwareMap.get(DcMotor.class, "right_drive_b");
@@ -33,7 +33,7 @@ public class TeleOpMecanum extends OpMode {
         leftDriveB.setDirection(DcMotor.Direction.REVERSE);
         rightDriveB.setDirection(DcMotor.Direction.FORWARD);
         rightDriveF.setDirection(DcMotor.Direction.FORWARD);
-        telemetry.addData("Big things coming... ", "Initialized");
+        telemetry.addData("Aww shit here we go again...(Read this in a CJ voice)", "Initialized");
 
 
     }

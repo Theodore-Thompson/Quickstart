@@ -18,6 +18,7 @@ import static com.pedropathing.ivy.commands.Commands.waitUntil;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow ;
 
+import org.firstinspires.ftc.teamcode.PositStorage;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 
@@ -133,6 +134,10 @@ public class AutoCodeMark1 extends OpMode {
         follower.update();
         Scheduler.execute();
 
+    }
+    @Override
+    public void stop() {
+        PositStorage.autonomousEndPose = follower.pose(); //saves your position in that file
     }
 }
 
