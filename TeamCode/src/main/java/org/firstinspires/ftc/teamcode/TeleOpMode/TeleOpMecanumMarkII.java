@@ -6,6 +6,7 @@ import com.pedropathing.follower.ManualDrive;
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.PositStorage;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -14,12 +15,27 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 public class TeleOpMecanumMarkII extends OpMode {
 
     private Follower follower;
+
+    DcMotor transfer;
+    DcMotor intake;
+    DcMotor shooter;
+
+    boolean checkingIntake = true;
+
+
+
     private DrivePowers powers;
 
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
+        transfer = hardwareMap.get(DcMotor.class, "transfer");
+        intake = hardwareMap.get(DcMotor.class, "intake");
+        shooter = hardwareMap.get(DcMotor.class, "shooter");
+
     }
+
+
 
     @Override
     public void loop() {
@@ -36,6 +52,18 @@ public class TeleOpMecanumMarkII extends OpMode {
             // On the fly Pose creation, we dont recommend this for Autonomous. Only accepts radians for heading
             follower.setPose(cornerPose); // overrides our pose  
         }
+
+        if ((gamepad1.xWasPressed() && !checkingIntake)){
+            intake.setPower(1.0);
+            transfer.setPower(1.0);
+            checkingIntake = true;
+        }
+        else if (gamepad1.xWasPressed() && checkingIntake){
+            intake.setPower(0.0);
+            transfer.setPower(0.0);
+            checkingIntake = false;
+        }
+        shooter.setPower(gamepad2.right_trigger);
 
 
         //ManualDrive.driveOrHold(
