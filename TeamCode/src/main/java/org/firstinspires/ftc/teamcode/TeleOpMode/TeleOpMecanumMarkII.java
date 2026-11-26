@@ -28,7 +28,7 @@ public class TeleOpMecanumMarkII extends OpMode {
 
     @Override
     public void init() {
-        follower = Constants.create(hardwareMap);
+        //follower = Constants.create(hardwareMap);
         transfer = hardwareMap.get(DcMotor.class, "transfer");
         intake = hardwareMap.get(DcMotor.class, "intake");
         shooter = hardwareMap.get(DcMotor.class, "shooter");
@@ -39,31 +39,35 @@ public class TeleOpMecanumMarkII extends OpMode {
 
     @Override
     public void loop() {
-        ManualDrive.driveOrHold(
-                            follower,
-                          -gamepad1.left_stick_y,
-                           gamepad1.left_stick_x,
-                           gamepad1.right_stick_x
-        );
-        follower.manual(powers);
+       // ManualDrive.driveOrHold(
+        //                    follower,
+         //                 -gamepad1.left_stick_y,
+          //                 gamepad1.left_stick_x,
+           //                gamepad1.right_stick_x
+        //);
+        //follower.manual(powers);
         // relocalise button
-        if (gamepad1.startWasPressed()) {
-            Pose cornerPose = new Pose(10.5, 10.5, Math.toRadians(90));
+        //if (gamepad1.startWasPressed()) {
+        //    Pose cornerPose = new Pose(10.5, 10.5, Math.toRadians(90));
             // On the fly Pose creation, we dont recommend this for Autonomous. Only accepts radians for heading
-            follower.setPose(cornerPose); // overrides our pose  
-        }
+        //    follower.setPose(cornerPose); // overrides our pose
+        //}
 
-        if ((gamepad1.xWasPressed() && !checkingIntake)){
-            intake.setPower(1.0);
-            transfer.setPower(1.0);
+        if ((gamepad1.xWasPressed())){
+            intake.setPower(-1);
             checkingIntake = true;
         }
-        else if (gamepad1.xWasPressed() && checkingIntake){
+        else if (gamepad1.bWasPressed()){
             intake.setPower(0.0);
-            transfer.setPower(0.0);
             checkingIntake = false;
         }
-        shooter.setPower(gamepad2.right_trigger);
+        if ((gamepad1.aWasPressed())){
+            transfer.setPower(1.0);
+        }
+        else if (gamepad1.yWasPressed()){
+            intake.setPower(0.0);
+        }
+        shooter.setPower(gamepad1.right_trigger);
 
 
         //ManualDrive.driveOrHold(
@@ -89,17 +93,21 @@ public class TeleOpMecanumMarkII extends OpMode {
         //}
 
         /* If it preferred by the driver for the motions to be relative to the way that he is facing; the code has been implemented here */
-        follower.manual(powers);
-        follower.update();
-        Pose robotPose = follower.pose(); // returns a Pose object
-        telemetry.addData("Robot X", robotPose.x());
-        telemetry.addData("Robot Y", robotPose.y());
-        telemetry.addData("Robot Heading", Math.toDegrees(robotPose.heading()));
-        follower.update();
+        //follower.manual(powers);
+        //follower.update();
+        //Pose robotPose = follower.pose(); // returns a Pose object
+        //telemetry.addData("Robot X", robotPose.x());
+        //telemetry.addData("Robot Y", robotPose.y());
+        //telemetry.addData("Robot Heading", Math.toDegrees(robotPose.heading()));
+        telemetry.addData("aww shit here we go again", "Intialized");
+        //follower.update();
     }
     @Override
     public void start(){
-        follower.setPose(PositStorage.autonomousEndPose);
-        follower.update();
+
+        //follower.setPose(PositStorage.autonomousEndPose);
+        //follower.update();
+
     }
+
 }
